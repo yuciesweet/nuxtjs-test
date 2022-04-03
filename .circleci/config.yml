@@ -2,7 +2,7 @@ on: 2
 jobs:
   deploy_main:
     docker:
-      - image: circleci/node:latest
+      - image: circleci/node:14.18.1
     steps:
       - checkout
       - run:
