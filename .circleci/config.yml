@@ -3,7 +3,7 @@ jobs:
  deploy_app:
    working_directory: ~/workspace
    docker:
-     - image: circleci/node:latest
+     - image: circleci/node:10-browsers
    steps:
      - checkout
      - run:
