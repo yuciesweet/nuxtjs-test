@@ -12,6 +12,9 @@ jobs:
           name: install nuxt
           command: npm install nuxt
       - run:
+          name: install vuetify
+          command: npm install @nuxtjs/vuetify -D
+      - run:
           name: build project
           command: npm run build
       - run:
