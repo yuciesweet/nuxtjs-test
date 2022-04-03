@@ -1,36 +1,28 @@
-version: 2
+on: 2
 jobs:
- deploy_app:
-   working_directory: ~/workspace
-   docker:
-     - image: circleci/node:10-browsers
-   steps:
-     - checkout
-     - run:
-         name: node_modulesのインストール
-         command: |
-           yarn
-     - run:
-         name: テスト
-         command: |
-           yarn lint
-     - run:
-         name: ビルド
-         command: |
-           yarn run build
-     - run:
-         name: firebase-toolsのインストール
-         command: |
-           yarn add --dev firebase-tools
-     - run:
-         name: firebaseへデプロイ
-         command: |
-           firebase deploy --token=$FIREBASE_TOKEN
+  deploy_main:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run:
+          name: install firebase-tools
+          command: sudo npm install -g firebase-tools
+      - run:
+          name: install nuxt
+          command: npm install nuxt
+      - run:
+          name: build project
+          command: npm run build
+      - run:
+          name: Deploy Firebase Hosting
+          command: firebase deploy --token=$FIREBASE_TOKEN 
+          
 workflows:
- version: 2
- build-deploy:
-   jobs:
-     - deploy_app:
-         filters:
-           branches:
-             only: master
+  version: 2
+  build_and_deploy:
+    jobs:
+      - deploy_main:
+          filters:
+            branches:
+              only: master
